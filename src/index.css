@@ -1,0 +1,229 @@
+/* Typography: Pixel for headings, Inter for body */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Press+Start+2P&family=VT323&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-neon-cyan: #00f5ff;
+  --color-neon-purple: #a855f7;
+  --color-neon-green: #22c55e;
+  --color-neon-amber: #f59e0b;
+  --color-neon-gold: #fbbf24;
+  --color-neon-magenta: #ff00ff;
+  --color-neon-orange: #ff6b35;
+  --color-dark-bg: #0a0a0f;
+  --color-surface: #0f1117;
+  --color-panel-bg: #12121a;
+  --color-panel-border: #1e1e2e;
+}
+
+:root {
+  --font-pixel: 'Press Start 2P', monospace;
+  --font-pixel-alt: 'VT323', monospace;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.15);
+  --glow-purple: 0 0 20px rgba(168, 85, 247, 0.15);
+}
+
+/* Dark theme */
+[data-theme='dark'],
+:root:not([data-theme='light']) {
+  --color-app-bg: #0a0a0f;
+  --color-app-panel: #0f1117;
+  --color-app-panel-border: rgba(255, 255, 255, 0.06);
+  --color-app-text: #f1f5f9;
+  --color-app-text-muted: #64748b;
+  --color-dark-bg: #0a0a0f;
+  --color-panel-bg: #0f1117;
+}
+
+/* Light theme — soft off-white, not blinding */
+[data-theme='light'] {
+  --color-app-bg: #e8ecf0;
+  --color-app-panel: #f2f4f8;
+  --color-app-panel-border: #d0d6e0;
+  --color-app-text: #1a1a24;
+  --color-app-text-muted: rgba(0, 0, 0, 0.55);
+  --color-dark-bg: #e8ecf0;
+  --color-panel-bg: #f2f4f8;
+  --color-panel-border: #d0d6e0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--color-app-bg);
+  font-family: var(--font-body);
+  color: var(--color-app-text);
+  overflow-x: hidden;
+  transition: background 0.3s ease, color 0.3s ease;
+}
+
+/* Glassmorphism card */
+.glass-card {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+
+/* Page fade-in */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.page-enter {
+  animation: pageFadeIn 0.15s ease-out;
+}
+
+/* Card hover */
+.card-hover {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.card-hover:hover {
+  transform: scale(1.02);
+}
+
+/* Skeleton shimmer */
+@keyframes skeletonShimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.skeleton-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.08) 50%, rgba(255,255,255,0.03) 100%);
+  background-size: 200% 100%;
+  animation: skeletonShimmer 1.5s ease-in-out infinite;
+}
+
+/* Sidebar nav active state */
+.sidebar-nav-active {
+  border-left: 3px solid var(--color-neon-cyan);
+  background: rgba(0, 245, 255, 0.05);
+}
+.sidebar-nav-inactive {
+  border-left: 3px solid transparent;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+/* Neon border utility */
+.neon-border {
+  border: 2px solid var(--color-neon-cyan);
+  box-shadow: 0 0 8px var(--color-neon-cyan), inset 0 0 8px rgba(0, 245, 255, 0.1);
+}
+
+.neon-border-green {
+  border-color: var(--color-neon-green);
+  box-shadow: 0 0 8px var(--color-neon-green), inset 0 0 8px rgba(57, 255, 20, 0.1);
+}
+
+.neon-border-magenta {
+  border-color: var(--color-neon-magenta);
+  box-shadow: 0 0 8px var(--color-neon-magenta), inset 0 0 8px rgba(255, 0, 255, 0.1);
+}
+
+/* Modal entrance animation */
+@keyframes questModalIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.quest-modal-in {
+  animation: questModalIn 0.2s ease-out forwards;
+}
+
+/* Leaflet theme overrides */
+.continent-map.leaflet-container {
+  background: var(--color-app-bg) !important;
+  font-family: var(--font-pixel-alt);
+}
+
+.continent-map .leaflet-popup-content-wrapper {
+  background: var(--color-app-panel) !important;
+  border: 1px solid var(--color-neon-cyan);
+  box-shadow: 0 0 12px rgba(0, 245, 255, 0.3);
+  border-radius: 4px;
+}
+
+.continent-map .leaflet-popup-tip {
+  background: var(--color-app-panel) !important;
+}
+
+.continent-map .leaflet-control-zoom {
+  border: 1px solid var(--color-neon-cyan) !important;
+  box-shadow: 0 0 8px rgba(0, 245, 255, 0.2);
+}
+
+.continent-map .leaflet-control-zoom a {
+  background: var(--color-app-panel) !important;
+  color: var(--color-neon-cyan) !important;
+  border: none !important;
+}
+
+.continent-map .leaflet-control-zoom a:hover {
+  background: rgba(0, 245, 255, 0.1) !important;
+}
+
+.continent-map .leaflet-tooltip {
+  background: var(--color-app-panel) !important;
+  border: 1px solid var(--color-neon-cyan) !important;
+  color: var(--color-neon-cyan) !important;
+  box-shadow: 0 0 8px rgba(0, 245, 255, 0.2);
+}
+
+/* Glowing pin marker */
+.glow-pin {
+  background: transparent !important;
+  border: none !important;
+}
+
+.pin-wrapper {
+  position: relative;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pin-glow {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--color-neon-cyan);
+  opacity: 0.6;
+  animation: pinPulse 1.5s ease-in-out infinite;
+}
+
+.pin-core {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-neon-cyan);
+  box-shadow: 0 0 10px var(--color-neon-cyan), 0 0 20px var(--color-neon-cyan);
+  border: 2px solid rgba(255, 255, 255, 0.8);
+}
+
+@keyframes pinPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 0.2; }
+}
+
+/* Proposed/pending pin — dimmed */
+.glow-pin-pending .pin-glow { background: var(--color-neon-orange) !important; opacity: 0.4; }
+.glow-pin-pending .pin-core { background: var(--color-neon-orange) !important; box-shadow: 0 0 6px var(--color-neon-orange); }
